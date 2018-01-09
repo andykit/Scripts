@@ -11,9 +11,7 @@ import datetime
 
 
 def create_phone_number():
-    """
-    随机生成11位手机号
-    """
+    """随机生成11位手机号"""
     mobile_begin_seed = ['139', '138', '137', '136', '135', '134',
                          '159', '158', '157', '150', '151', '152',
                          '188', '187', '182', '183', '184', '178',
@@ -24,15 +22,21 @@ def create_phone_number():
     return random.choice(mobile_begin_seed) + ''.join(random.choice("0123456789") for i in range(8))
 
 
-def create_string(min_length=6, max_length=12):
-    """
-    随机生成字母数字混合字符串
-    """
+def create_number(length=6):
+    """随机数字"""
+    return ''.join(random.choice(string.digits) for i in range(length))
+
+
+def create_string(length=6):
+    """随机字符串"""
+    return ''.join(random.choice(string.ascii_lowercase) for i in range(length))
+
+
+def create_uname():
+    """随机混合字符串和数字"""
     string_length = random.randint(min_length, max_length)
-    letter_length = random.randint(1, string_length-1)
-    letter = ''.join(random.choice(string.ascii_lowercase) for i in range(letter_length))
-    number = ''.join(random.choice(string.digits) for i in range(string_length - letter_length))
-    return letter+number
+    letter_length = random.randint(1, string_length - 1)
+    return create_string(string_length) + create_number(letter_length)
 
 
 def create_birthday(start='1960-01-01', end='2000-12-30'):
@@ -97,4 +101,5 @@ def main():
     print('身份证号码为: %s' % create_id_number())
 
 if __name__ == '__main__':
-    main()
+    for i in range(100):
+        main()

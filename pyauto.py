@@ -55,6 +55,4 @@ def mouse(x, y, order='leftclick'):
     order_dict[order]()
 
 if __name__ == '__main__':
-    # run_app('E:\Game917\Game.exe')
-    hwnd = find_app_handle('#32770', '917游戏登录')
-    hwnds = enum_child_window(hwnd)
+    pass
