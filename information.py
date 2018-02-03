@@ -23,7 +23,7 @@ def create_phone_number():
 
 
 def create_number(length=6):
-    """随机数字"""
+    """随机数字字符"""
     return ''.join(random.choice(string.digits) for i in range(length))
 
 
@@ -32,17 +32,23 @@ def create_string(length=6):
     return ''.join(random.choice(string.ascii_lowercase) for i in range(length))
 
 
-def create_uname():
-    """随机混合字符串和数字"""
-    string_length = random.randint(min_length, max_length)
-    letter_length = random.randint(1, string_length - 1)
+def create_email():
+    """随机生成邮箱地址"""
+    email_list = ['qq', '163', '126', 'sina', 'sohu', 'gmail', 'yahoo']
+    email_address = '@' + random.choice(email_list) + '.com'
+    return create_stringx(6, 11) + email_address
+
+
+def create_stringx(min_length, max_length):
+    """随机混合字符串加数字"""
+    random_length = random.randint(min_length, max_length)
+    string_length = random.randint(1, random_length - 1)
+    letter_length = random_length - string_length
     return create_string(string_length) + create_number(letter_length)
 
 
 def create_birthday(start='1960-01-01', end='2000-12-30'):
-    """
-    随机生成生日日期
-    """
+    """随机生成生日日期"""
     days = (datetime.datetime.strptime(end, "%Y-%m-%d") - datetime.datetime.strptime(start, "%Y-%m-%d")).days + 1
     birth_days = datetime.datetime.strftime(
         datetime.datetime.strptime(start, "%Y-%m-%d") + datetime.timedelta(random.randint(0, days)), "%Y%m%d")
@@ -50,13 +56,9 @@ def create_birthday(start='1960-01-01', end='2000-12-30'):
 
 
 def create_id_number():
-    """
-    随机生成中国大陆身份证号
-    """
+    """随机生成中国大陆身份证号"""
     def get_validate_check_out(id17):
-        """
-        身份证号码校验码算法
-        """
+        """身份证号码校验码算法"""
         weight = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2]  # 十七位数字本体码权重
         validate = ['1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2']  # mod11,对应校验码字符值
         sum_ = 0
@@ -82,10 +84,8 @@ def create_id_number():
     return id_number
 
 
-def create_name():
-    """
-    随机生成人名
-    """
+def create_chinese_name():
+    """随机中文名"""
     first_name = random.choice(mydata.first_name)
     midlle_name = random.choice(mydata.other_name)
     last_name = random.choice(mydata.other_name)
@@ -93,13 +93,15 @@ def create_name():
 
 
 def main():
-    print('姓名为: %s' % create_name())
-    print('出生日期: %s' % create_birthday())
-    print('用户名为: %s' % create_string())
-    print('密码为: %s' % create_string())
-    print('手机号为: %s' % create_phone_number())
-    print('身份证号码为: %s' % create_id_number())
+    print('姓名: {}'.format(create_chinese_name()))
+    print('出生日期: {}'.format(create_birthday()))
+    print('手机号码: {}'.format(create_phone_number()))
+    print('邮箱地址: {}'.format(create_email()))
+    print('用户名: {}'.format(create_stringx(6, 7)))
+    print('密码: {}'.format(create_stringx(6, 7)))
+
 
 if __name__ == '__main__':
-    for i in range(100):
+    for i in range(50):
         main()
+        print('-'*80, '\n')
